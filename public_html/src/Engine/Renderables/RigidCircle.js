@@ -39,8 +39,8 @@ RigidCircle.prototype.update = function () {
     
     for (var i = 0; i < this.mLines.length; i++) {
         if ( i > 0){
-            vec2.rotateWRT(vertex0temp, vertex0, i * Math.PI / this.numCircleLines, this.mCenter);
-            vec2.rotateWRT(vertex1temp, vertex1, i * Math.PI / this.numCircleLines, this.mCenter);
+            vec2.rotateWRT(vertex0temp, vertex0, i * Math.PI * 2 / this.numCircleLines, this.mCenter);
+            vec2.rotateWRT(vertex1temp, vertex1, i * Math.PI * 2 / this.numCircleLines, this.mCenter);
         }
         this.mLines[i].setFirstVertex(vertex0temp[0], vertex0temp[1]);
         this.mLines[i].setSecondVertex(vertex1temp[0], vertex1temp[1]);

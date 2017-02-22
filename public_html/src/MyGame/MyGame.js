@@ -18,6 +18,7 @@ function MyGame() {
     this.kMinionSprite = "assets/minion_sprite.png";
     
     this.mHero = null;
+    this.mEnemies = [];
 
     this.mMsg = null;
 
@@ -44,9 +45,12 @@ MyGame.prototype.initialize = function () {
     );
     this.mCamera.setBackgroundColor([0.8, 0.8, 0.8, 1]);
        
-    console.log("init pre hero");
+    this.mEnemies.push(new Wing(this.kMinionSprite));
+    this.mEnemies[0].getXform().setPosition(45, 50);
+    
     this.mHero = new Hero(this.kMinionSprite);
-    console.log("init post hero");
+    
+    
     
     this.mMsg = new FontRenderable("Status Message");
     this.mMsg.setColor([0, 0, 0, 1]);
@@ -68,6 +72,7 @@ MyGame.prototype.draw = function () {
     }
     
     this.mHero.draw(this.mCamera);
+    this.mEnemies[0].draw(this.mCamera);
     this.mMsg.draw(this.mCamera);   // only draw status in the main camera
 };
 
@@ -108,6 +113,7 @@ MyGame.prototype.update = function () {
     }
     
     this.mHero.update();
+    this.mEnemies[0].update();
 
     msg += echo;
     this.mMsg.setText(msg);
