@@ -77,9 +77,6 @@ Hero.prototype.update = function () {
         this.setVisibility(!this.isVisible());
     }
     
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Y)) {
-        this.setVisibility(true);
-    }
     
     this.mRect.update();
     this.mCirc.update();

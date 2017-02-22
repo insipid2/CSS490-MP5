@@ -87,6 +87,11 @@ Wing.prototype.update = function (aCamera) {
     }
     xform.incRotationByRad(this.kRotateSpeed);
     
+    // toggle texture drawing
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.T)) {
+        this.setVisibility(!this.isVisible());
+    }
+    
     // animation and circle location updates
     this.mWing.updateAnimation();
     this.mCirc.update();
