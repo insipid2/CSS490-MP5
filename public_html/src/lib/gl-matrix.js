@@ -658,6 +658,17 @@ vec2.str = function (a) {
     return 'vec2(' + a[0].toPrecision(3) + ', ' + a[1].toPrecision(3) + ')';
 };
 
+vec2.rotateWRT = function(out, a, c, pt){
+
+    var r = [];
+    vec2.subtract(r, a, pt);
+    vec2.rotate(r, r, c);
+    vec2.add(r, r, pt);
+    out[0] = r[0];
+    out[1] = r[1];
+    return r;
+};
+
 if(typeof(exports) !== 'undefined') {
     exports.vec2 = vec2;
 }

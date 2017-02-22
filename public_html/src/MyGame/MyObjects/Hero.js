@@ -13,36 +13,59 @@
 
 function Hero(spriteTexture) {
     this.kDelta = 0.3;
-
     this.mDye = new SpriteRenderable(spriteTexture);
     this.mDye.setColor([1, 1, 1, 0]);
     this.mDye.getXform().setPosition(35, 50);
     this.mDye.getXform().setSize(9, 12);
     this.mDye.setElementPixelPositions(0, 120, 0, 180);
     GameObject.call(this, this.mDye);
+    this.mRect = new RigidRectangle(this.getXform());
 }
 gEngine.Core.inheritPrototype(Hero, GameObject);
 
 // x, y describe the point toward which the hero will try to move
 Hero.prototype.update = function (x, y) {
+   
+    // * interpolated mouse movement *
     var xdist = Math.abs(this.mDye.getXform().getXPos() - x);
     var ydist = Math.abs(this.mDye.getXform().getYPos() - y);
     var dist = Math.sqrt(xdist * xdist + ydist * ydist);
     this.rotateObjPointTo([x, y], 0.05);
     this.setSpeed(dist / 20);
     GameObject.prototype.update.call(this);
-//    // control by WASD - *OLD MOVEMENT*
-//    var xform = this.getXform();
-//    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.W)) {
-//        xform.incYPosBy(this.kDelta);
-//    }
-//    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.S)) {
-//        xform.incYPosBy(-this.kDelta);
-//    }
-//    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.A)) {
-//        xform.incXPosBy(-this.kDelta);
-//    }
-//    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.D)) {
-//        xform.incXPosBy(this.kDelta);
-//    }
+    
+};
+
+// x, y describe the point toward which the hero will try to move
+Hero.prototype.update = function () {
+    // * keyboard movement - WASD *
+    var xform = this.getXform();
+    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.W)) {
+        xform.incYPosBy(this.kDelta);
+    }
+    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.S)) {
+        xform.incYPosBy(-this.kDelta);
+    }
+    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.A)) {
+        xform.incXPosBy(-this.kDelta);
+    }
+    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.D)) {
+        xform.incXPosBy(this.kDelta);
+    }
+    
+    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Z)) {
+        xform.incRotationByDegree(this.kDelta);
+    }
+    
+    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.X)) {
+        xform.incRotationByDegree(-this.kDelta);
+    }
+    
+    this.mRect.update();
+};
+
+Hero.prototype.draw = function (aCamera) {
+    
+    GameObject.prototype.draw.call(this, aCamera);
+    this.mRect.draw(aCamera);
 };

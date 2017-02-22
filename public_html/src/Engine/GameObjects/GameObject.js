@@ -11,6 +11,7 @@
 
 function GameObject(renderableObj) {
     this.mRenderComponent = renderableObj;
+    this.mPhysicsComponent = null;
     this.mVisible = true;
     this.mCurrentFrontDir = vec2.fromValues(0, 1);  // this is the current front direction of the object
     this.mSpeed = 0;

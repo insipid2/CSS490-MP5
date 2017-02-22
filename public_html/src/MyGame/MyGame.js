@@ -14,6 +14,10 @@
 function MyGame() {
     // The camera to view the scene
     this.mCamera = null;
+    
+    this.kMinionSprite = "assets/minion_sprite.png";
+    
+    this.mHero = null;
 
     this.mMsg = null;
 
@@ -23,16 +27,27 @@ function MyGame() {
 }
 gEngine.Core.inheritPrototype(MyGame, Scene);
 
+MyGame.prototype.loadScene = function () {
+    gEngine.Textures.loadTexture(this.kMinionSprite);
+};
+
+MyGame.prototype.unloadScene = function () {
+    gEngine.Textures.unloadTexture(this.kMinionSprite);
+};
+
 MyGame.prototype.initialize = function () {
     // Step A: set up the cameras
     this.mCamera = new Camera(
-        vec2.fromValues(30, 27.5), // position of the camera
+        vec2.fromValues(50, 37.5), // position of the camera
         100,                       // width of camera
-        [0, 0, 640, 480]           // viewport (orgX, orgY, width, height)
+        [0, 0, 800, 600]           // viewport (orgX, orgY, width, height)
     );
     this.mCamera.setBackgroundColor([0.8, 0.8, 0.8, 1]);
-            // sets the background to gray
-
+       
+    console.log("init pre hero");
+    this.mHero = new Hero(this.kMinionSprite);
+    console.log("init post hero");
+    
     this.mMsg = new FontRenderable("Status Message");
     this.mMsg.setColor([0, 0, 0, 1]);
     this.mMsg.getXform().setPosition(-19, -8);
@@ -51,6 +66,8 @@ MyGame.prototype.draw = function () {
         l = this.mLineSet[i];
         l.draw(this.mCamera);
     }
+    
+    this.mHero.draw(this.mCamera);
     this.mMsg.draw(this.mCamera);   // only draw status in the main camera
 };
 
@@ -89,6 +106,8 @@ MyGame.prototype.update = function () {
         this.mCurrentLine = null;
         this.mP1 = null;
     }
+    
+    this.mHero.update();
 
     msg += echo;
     this.mMsg.setText(msg);
