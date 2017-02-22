@@ -13,6 +13,7 @@
 
 function Wing(spriteTexture) {
     this.kDelta = 0.3;
+    this.kRotateSpeed = 0.01;
     this.mWing = new SpriteAnimateRenderable(spriteTexture);
     this.mWing.setColor([1, 1, 1, 0]);
     this.mWing.getXform().setSize(12, 9.6);
@@ -57,7 +58,9 @@ Wing.prototype.update = function (x, y) {
 };
 
 Wing.prototype.update = function (aCamera) {
-    var pos = this.getXform().getPosition();
+    // wing movement
+    var xform = this.getXform();
+    var pos = xform.getPosition();
     var radius = this.mCirc.getRadius();
     var dirX = this.getCurrentFrontDir()[0];
     var dirY = this.getCurrentFrontDir()[1];
@@ -65,19 +68,26 @@ Wing.prototype.update = function (aCamera) {
         dirX *= -1;
         pos[0] = 100 - radius;
     }
-    if (pos[0] - radius < 0) {
+    else if (pos[0] - radius < 0) {
         dirX *= -1;
         pos[0] = 0 + radius;
     }
     if (pos[1] + radius > 75) {
         dirY *= -1;
     }
-    if (pos[1] - radius < 0) {
+    else if (pos[1] - radius < 0) {
         dirY *= -1;
     }
     this.setCurrentFrontDir(vec2.fromValues(dirX, dirY));
     vec2.scaleAndAdd(pos, pos, this.getCurrentFrontDir(), this.getSpeed());
     
+    // wing rotation
+    if (xform.getRotationInRad() > 1.0 || xform.getRotationInRad() < -1.0) {
+        this.kRotateSpeed *= -1;
+    }
+    xform.incRotationByRad(this.kRotateSpeed);
+    
+    // animation and circle location updates
     this.mWing.updateAnimation();
     this.mCirc.update();
 };
