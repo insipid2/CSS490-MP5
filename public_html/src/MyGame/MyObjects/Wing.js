@@ -26,26 +26,39 @@ function Wing(spriteTexture) {
 
     GameObject.call(this, this.mWing);
     this.setVisibility(true);
-    this.mCirc = new RigidCircle(this.getXform());
+    this.mCirc = new RigidCircle(this.mWing.getXform());
+    var velX = Math.random();
+    var velY = Math.random();
+    if (Math.random() < 0.5) {
+        velX *= -1;
+    }
+    
+    if (Math.random() < 0.5) {
+        velY *= -1;
+    }
+    this.setCurrentFrontDir([velX, velY]);
+    this.setSpeed(this.kDelta);
 }
 gEngine.Core.inheritPrototype(Wing, GameObject);
 
 Wing.prototype.update = function (x, y) {
-    // remember to update wing's animation
-    this.mWing.updateAnimation();
-    
-    var xdist = Math.abs(this.mWing.getXform().getXPos() - x);
-    var ydist = Math.abs(this.mWing.getXform().getYPos() - y);
-    var dist = Math.sqrt(xdist * xdist + ydist * ydist);
-    this.rotateObjPointTo([x, y], 0.05);
-    this.setSpeed(dist / 20);
-    this.mCirc.update();
-    GameObject.prototype.update.call(this);
+//    // remember to update wing's animation
+//    this.mWing.updateAnimation();
+//    
+//    var xdist = Math.abs(this.mWing.getXform().getXPos() - x);
+//    var ydist = Math.abs(this.mWing.getXform().getYPos() - y);
+//    var dist = Math.sqrt(xdist * xdist + ydist * ydist);
+//    this.rotateObjPointTo([x, y], 0.05);
+//    this.setSpeed(dist / 20);
+//    this.mCirc.update();
+//    GameObject.prototype.update.call(this);
 
 };
 
 Wing.prototype.update = function (aCamera) {
+    GameObject.prototype.update.call(this);
     this.mWing.updateAnimation();
+    this.mCirc.update();
 };
 
 Wing.prototype.draw = function (aCamera) {
