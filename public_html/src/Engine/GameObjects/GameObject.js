@@ -82,9 +82,7 @@ GameObject.prototype.rotateObjPointTo = function (p, rate) {
 };
 
 GameObject.prototype.update = function () {
-    // simple default behavior
-    var pos = this.getXform().getPosition();
-    vec2.scaleAndAdd(pos, pos, this.getCurrentFrontDir(), this.getSpeed());
+    // nothing by default!
 };
 
 GameObject.prototype.draw = function (aCamera) {

@@ -56,7 +56,27 @@ Wing.prototype.update = function (x, y) {
 };
 
 Wing.prototype.update = function (aCamera) {
-    GameObject.prototype.update.call(this);
+    var pos = this.getXform().getPosition();
+    var radius = this.mCirc.getRadius();
+    var dirX = this.getCurrentFrontDir()[0];
+    var dirY = this.getCurrentFrontDir()[1];
+    if (pos[0] + radius > 100) {
+        dirX *= -1;
+        pos[0] = 100 - radius;
+    }
+    if (pos[0] - radius < 0) {
+        dirX *= -1;
+        pos[0] = 0 + radius;
+    }
+    if (pos[1] + radius > 75) {
+        dirY *= -1;
+    }
+    if (pos[1] - radius < 0) {
+        dirY *= -1;
+    }
+    this.setCurrentFrontDir(vec2.fromValues(dirX, dirY));
+    vec2.scaleAndAdd(pos, pos, this.getCurrentFrontDir(), this.getSpeed());
+    
     this.mWing.updateAnimation();
     this.mCirc.update();
 };
