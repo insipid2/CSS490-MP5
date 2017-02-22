@@ -29,12 +29,25 @@ RigidCircle.prototype.update = function () {
     var vertex1 = vec2.fromValues(this.mCenter[0] + this.mRadius, this.mCenter[1] - edgeLen);
     
     // rotate the verteces with respect to the center, based on xform rotation amount
-    vec2.rotateWRT(vertex0, vertex0, this.mXform.getRotationInRad(), this.mXform.getPosition());
-    vec2.rotateWRT(vertex1, vertex1, this.mXform.getRotationInRad(), this.mXform.getPosition());
+    vec2.rotateWRT(vertex0, vertex0, this.mXform.getRotationInRad(), this.mCenter);
+    vec2.rotateWRT(vertex1, vertex1, this.mXform.getRotationInRad(), this.mCenter);
     
     // define line locations
-    this.mLines[0].setFirstVertex(vertex0[0], vertex0[1]);
-    this.mLines[0].setSecondVertex(vertex1[0], vertex1[1]);
+    var vertex0temp = vec2.fromValues(vertex0[0], vertex0[1]);
+    var vertex1temp = vec2.fromValues(vertex1[0], vertex1[1]);
+    
+    
+    for (var i = 0; i < this.mLines.length; i++) {
+        if ( i > 0){
+            vec2.rotateWRT(vertex0temp, vertex0, i * Math.PI / this.numCircleLines, this.mCenter);
+            vec2.rotateWRT(vertex1temp, vertex1, i * Math.PI / this.numCircleLines, this.mCenter);
+        }
+        this.mLines[i].setFirstVertex(vertex0temp[0], vertex0temp[1]);
+        this.mLines[i].setSecondVertex(vertex1temp[0], vertex1temp[1]);
+        
+        
+    }
+    
 };
 
 RigidCircle.prototype.draw = function (aCamera) {
