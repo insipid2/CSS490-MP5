@@ -27,6 +27,7 @@ function Wing(spriteTexture) {
     GameObject.call(this, this.mWing);
     this.setVisibility(true);
     this.mCirc = new RigidCircle(this.mWing.getXform());
+    this.mCirc.setRadius(4);
     var velX = Math.random();
     var velY = Math.random();
     if (Math.random() < 0.5) {

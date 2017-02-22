@@ -15,13 +15,16 @@ function RigidCircle(xform) {
         this.mCurrentLine.setColor([1.0, 1.0, 1.0, 1.0]);
         this.mLines.push(this.mCurrentLine);
     }
+    
+    this.mCenter = this.mXform.getPosition();
+    this.mRefVertex = vec2.fromValues(this.mCenter[0] + this.mXform.getWidth() / 2, this.mCenter[1] + this.mXform.getHeight() / 2);
+    this.mRadius = vec2.distance(this.mCenter, this.mRefVertex);
 }
 
 RigidCircle.prototype.update = function () {
     // update the reference points: center, radius, reference vertex (for calculating radius)
     this.mCenter = this.mXform.getPosition();
     this.mRefVertex = vec2.fromValues(this.mCenter[0] + this.mXform.getWidth() / 2, this.mCenter[1] + this.mXform.getHeight() / 2);
-    this.mRadius = vec2.distance(this.mCenter, this.mRefVertex);
     
     // find the initial 2 verteces
     var edgeLen = this.mRadius * Math.tan(Math.PI / this.numCircleLines);
@@ -58,4 +61,8 @@ RigidCircle.prototype.draw = function (aCamera) {
 
 RigidCircle.prototype.getRadius = function() {
     return this.mRadius;
+};
+
+RigidCircle.prototype.setRadius = function(newRadius) {
+    this.mRadius = newRadius;
 };
