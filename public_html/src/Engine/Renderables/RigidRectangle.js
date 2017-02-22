@@ -29,6 +29,7 @@ function RigidRectangle(xform) {
 }
 
 RigidRectangle.prototype.update = function () {
+    // find the 4 verteces and corresponding normal position points
     var vertex0 = vec2.fromValues(this.mXform.getXPos() + this.mXform.getWidth() / 2, this.mXform.getYPos() + this.mXform.getHeight() / 2);
     var vertex1 = vec2.fromValues(this.mXform.getXPos() + this.mXform.getWidth() / 2, this.mXform.getYPos() - this.mXform.getHeight() / 2);
     var vertex2 = vec2.fromValues(this.mXform.getXPos() - this.mXform.getWidth() / 2, this.mXform.getYPos() - this.mXform.getHeight() / 2);
@@ -38,6 +39,7 @@ RigidRectangle.prototype.update = function () {
     var normal2 = vec2.fromValues(this.mXform.getXPos() - this.mXform.getWidth() / 2, this.mXform.getYPos() - this.mXform.getHeight() / 2 - this.mXform.getWidth() / 3);
     var normal3 = vec2.fromValues(this.mXform.getXPos() - this.mXform.getWidth() / 2 - this.mXform.getWidth() / 3, this.mXform.getYPos() + this.mXform.getHeight() / 2);
     
+    // rotate the verteces with respect to the center, based on xform rotation amount
     vec2.rotateWRT(vertex0, vertex0, this.mXform.getRotationInRad(), this.mXform.getPosition());
     vec2.rotateWRT(vertex1, vertex1, this.mXform.getRotationInRad(), this.mXform.getPosition());
     vec2.rotateWRT(vertex2, vertex2, this.mXform.getRotationInRad(), this.mXform.getPosition());
@@ -48,6 +50,7 @@ RigidRectangle.prototype.update = function () {
     vec2.rotateWRT(normal2, normal2, this.mXform.getRotationInRad(), this.mXform.getPosition());
     vec2.rotateWRT(normal3, normal3, this.mXform.getRotationInRad(), this.mXform.getPosition());
     
+    // define rectangle and normal line locations based off verteces and normal position points
     this.mLines[0].setFirstVertex(vertex3[0], vertex3[1]);
     this.mLines[0].setSecondVertex(vertex0[0], vertex0[1]);
     this.mNormals[0].setFirstVertex(vertex0[0], vertex0[1]);

@@ -20,6 +20,7 @@ function Hero(spriteTexture) {
     this.mDye.setElementPixelPositions(0, 120, 0, 180);
     GameObject.call(this, this.mDye);
     this.mRect = new RigidRectangle(this.getXform());
+    this.mCirc = new RigidCircle(this.getXform());
 }
 gEngine.Core.inheritPrototype(Hero, GameObject);
 
@@ -62,10 +63,12 @@ Hero.prototype.update = function () {
     }
     
     this.mRect.update();
+    this.mCirc.update();
 };
 
 Hero.prototype.draw = function (aCamera) {
     
     GameObject.prototype.draw.call(this, aCamera);
     this.mRect.draw(aCamera);
+    this.mCirc.draw(aCamera);
 };
