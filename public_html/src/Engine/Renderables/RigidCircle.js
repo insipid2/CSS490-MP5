@@ -55,3 +55,7 @@ RigidCircle.prototype.draw = function (aCamera) {
         this.mLines[i].draw(aCamera);
     }
 };
+
+RigidCircle.prototype.getRadius = function() {
+    return this.mRadius;
+};
