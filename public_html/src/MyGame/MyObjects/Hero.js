@@ -72,6 +72,15 @@ Hero.prototype.update = function () {
         xform.incRotationByDegree(-this.kDelta);
     }
     
+    // toggle texture drawing
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.T)) {
+        this.setVisibility(!this.isVisible());
+    }
+    
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Y)) {
+        this.setVisibility(true);
+    }
+    
     this.mRect.update();
     this.mCirc.update();
 };
