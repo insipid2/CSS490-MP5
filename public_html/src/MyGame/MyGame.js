@@ -19,7 +19,10 @@ function MyGame() {
     
     this.mHero = null;
     this.mEnemies = [];
-
+    
+    // inidicates which object is currently selected
+    // 0: hero, 1-5: enemies
+    this.kSelected = 0;
     this.mMsg = null;
 
     this.mLineSet = [];
@@ -54,7 +57,7 @@ MyGame.prototype.initialize = function () {
     
     this.mMsg = new FontRenderable("Status Message");
     this.mMsg.setColor([0, 0, 0, 1]);
-    this.mMsg.getXform().setPosition(-19, -8);
+    this.mMsg.getXform().setPosition(5, 5);
     this.mMsg.setTextHeight(3);
 };
 
@@ -79,7 +82,7 @@ MyGame.prototype.draw = function () {
 // The Update function, updates the application state. Make sure to _NOT_ draw
 // anything from this function!
 MyGame.prototype.update = function () {
-    var msg = "Lines: " + this.mLineSet.length + " ";
+    var msg = "Current: " + this.kSelected + " Radius: " + this.mHero.getRadius();
     var echo = "";
     var x, y;
 
