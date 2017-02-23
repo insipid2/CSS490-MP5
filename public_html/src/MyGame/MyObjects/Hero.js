@@ -88,7 +88,3 @@ Hero.prototype.draw = function (aCamera) {
     this.mRect.draw(aCamera);
     this.mCirc.draw(aCamera);
 };
-
-Hero.prototype.getRadius = function() {
-    return this.mCirc.getRadius();
-};

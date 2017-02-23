@@ -90,3 +90,7 @@ GameObject.prototype.draw = function (aCamera) {
         this.mRenderComponent.draw(aCamera);
     }
 };
+
+GameObject.prototype.getRadius = function() {
+    return this.mCirc.getRadius();
+};
