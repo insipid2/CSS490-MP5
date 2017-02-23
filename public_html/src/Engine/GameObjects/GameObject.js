@@ -15,6 +15,7 @@ function GameObject(renderableObj) {
     this.mVisible = true;
     this.mCurrentFrontDir = vec2.fromValues(0, 1);  // this is the current front direction of the object
     this.mSpeed = 0;
+    this.kDeltaRadius = 0.1;
 }
 GameObject.prototype.getXform = function () { return this.mRenderComponent.getXform(); };
 GameObject.prototype.getBBox = function () {
@@ -93,4 +94,12 @@ GameObject.prototype.draw = function (aCamera) {
 
 GameObject.prototype.getRadius = function() {
     return this.mCirc.getRadius();
+};
+
+GameObject.prototype.incRadius = function() {
+    this.mCirc.setRadius(this.mCirc.getRadius() + this.kDeltaRadius);
+};
+
+GameObject.prototype.decRadius = function() {
+    this.mCirc.setRadius(this.mCirc.getRadius() - this.kDeltaRadius);
 };

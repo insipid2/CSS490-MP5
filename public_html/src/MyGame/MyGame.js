@@ -104,6 +104,17 @@ MyGame.prototype.update = function () {
         }
     }
     
+    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Up)) {
+        this.mObjects[this.kSelected].incRadius();
+    }
+    
+    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.Down)) {
+        
+        if(this.mObjects[this.kSelected].getRadius() > 1) {
+            this.mObjects[this.kSelected].decRadius();
+        }
+    }
+    
     if (gEngine.Input.isButtonPressed(gEngine.Input.mouseButton.Middle)) {
         var len = this.mLineSet.length;
         if (len > 0) {
