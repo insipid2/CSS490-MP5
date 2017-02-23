@@ -17,6 +17,8 @@ function MyGame() {
     
     this.kMinionSprite = "assets/minion_sprite.png";
     
+    // 0: hero, 1-5: enemies
+    this.mObjects = [];
     this.mHero = null;
     this.mEnemies = [];
     
@@ -48,11 +50,13 @@ MyGame.prototype.initialize = function () {
     );
     this.mCamera.setBackgroundColor([0.8, 0.8, 0.8, 1]);
        
-    this.mEnemies.push(new Wing(this.kMinionSprite));
-    this.mEnemies[0].getXform().setPosition(45, 50);
-    
     this.mHero = new Hero(this.kMinionSprite);
+    this.mObjects.push(this.mHero);
     
+    for(var i = 1; i < 6; i++) {
+        this.mObjects.push(new Wing(this.kMinionSprite));
+        this.mObjects[i].getXform().setPosition(Math.random() * 80 + 10, Math.random() * 55 + 10);
+    }    
     
     
     this.mMsg = new FontRenderable("Status Message");
@@ -73,9 +77,9 @@ MyGame.prototype.draw = function () {
         l = this.mLineSet[i];
         l.draw(this.mCamera);
     }
-    
-    this.mHero.draw(this.mCamera);
-    this.mEnemies[0].draw(this.mCamera);
+    for (var i = 0; i < this.mObjects.length; i++) {
+        this.mObjects[i].draw(this.mCamera);
+    }
     this.mMsg.draw(this.mCamera);   // only draw status in the main camera
 };
 
@@ -115,8 +119,10 @@ MyGame.prototype.update = function () {
         this.mP1 = null;
     }
     
-    this.mHero.update();
-    this.mEnemies[0].update();
+
+    for (var i = 0; i < this.mObjects.length; i++) {
+        this.mObjects[i].update();
+    }
 
     msg += echo;
     this.mMsg.setText(msg);
