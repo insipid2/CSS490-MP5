@@ -146,6 +146,16 @@ MyGame.prototype.update = function () {
     
 
     for (var i = 0; i < this.mObjects.length; i++) {
+        for(var j = i + 1; j < this.mObjects.length; j ++) {
+            if(vec2.distance(this.mObjects[i].getXform().getPosition(), this.mObjects[j].getXform().getPosition()) < 
+                    this.mObjects[i].getRadius() + this.mObjects[j].getRadius()) {
+                this.mObjects[i].setCurrentFrontDir(vec2.fromValues(this.mObjects[i].getCurrentFrontDir()[0] * -1, this.mObjects[i].getCurrentFrontDir()[1] * -1));
+                this.mObjects[j].setCurrentFrontDir(vec2.fromValues(this.mObjects[j].getCurrentFrontDir()[0] * -1, this.mObjects[j].getCurrentFrontDir()[1] * -1));
+            }
+        }
+    }
+    
+    for (var i = 0; i < this.mObjects.length; i++) {
         this.mObjects[i].update();
     }
 
