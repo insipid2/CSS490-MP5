@@ -97,5 +97,8 @@ RigidCircle.prototype.getRadius = function() {
 
 RigidCircle.prototype.setRadius = function(newRadius) {
     this.mRadius = newRadius;
+};
+
+RigidCircle.prototype.setRadiusBlack = function(newRadius) {
     this.mRadiusBlack = newRadius;
 };
