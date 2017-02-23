@@ -102,3 +102,7 @@ Wing.prototype.draw = function (aCamera) {
     this.mCirc.draw(aCamera);
 };
 
+Wing.prototype.getRadius = function() {
+    return this.mCirc.getRadius();
+};
+

@@ -86,10 +86,24 @@ MyGame.prototype.draw = function () {
 // The Update function, updates the application state. Make sure to _NOT_ draw
 // anything from this function!
 MyGame.prototype.update = function () {
-    var msg = "Current: " + this.kSelected + " Radius: " + this.mHero.getRadius();
+    var msg = "Current: " + this.kSelected + " Radius: " + this.mObjects[this.kSelected].getRadius();
     var echo = "";
     var x, y;
 
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Right)) {
+        this.kSelected++;
+        if (this.kSelected > 5) {
+            this.kSelected = 0;
+        }
+    }
+    
+    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Left)) {
+        this.kSelected--;
+        if (this.kSelected < 0) {
+            this.kSelected = 5;
+        }
+    }
+    
     if (gEngine.Input.isButtonPressed(gEngine.Input.mouseButton.Middle)) {
         var len = this.mLineSet.length;
         if (len > 0) {
